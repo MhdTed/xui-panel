@@ -7,7 +7,6 @@
 # -------------------------------------------------------------
 #  How to use (on any Debian/Ubuntu‑based distro):
 #     1)  curl -fsSL https://raw.githubusercontent.com/MhdTed/xui-panel/main/install.sh | sudo bash
-#     2)  sudo bash install.sh
 #  The script installs all dependencies, builds the frontend,
 #  writes service files, and enables+starts the panel on port 80.
 # =============================================================
@@ -70,7 +69,7 @@ const __dirname  = path.dirname(__filename);
 
 const app  = express();
 const db   = new sqlite3.Database(path.join(__dirname, 'db.sqlite'));
-const PORT = process.env.PORT || ${PANEL_PORT};
+const PORT = process.env.PORT || 80;
 
 app.use(cors());
 app.use(express.json());
@@ -145,18 +144,17 @@ cat > client/package.json <<'PKG2'
 }
 PKG2
 
-# entrypoint index.html
 mkdir -p client/public
 cat > client/public/index.html <<'HTML'
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>xui‑Panel</title>
   <script defer="defer" src="/static/js/bundle.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 <body class="bg-gray-100">
   <div id="root"></div>
@@ -164,7 +162,6 @@ cat > client/public/index.html <<'HTML'
 </html>
 HTML
 
-# React App.jsx
 cat > client/src/App.jsx <<'REACT'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -218,7 +215,6 @@ export default function App() {
 }
 REACT
 
-# React index.js
 cat > client/src/index.js <<'IDX'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -234,7 +230,6 @@ npm install --omit=dev
 cd "${PANEL_DIR}/client"
 npm install --omit=dev
 npm run build
-# move build to server/public
 rm -rf "${PANEL_DIR}/server/public"
 cp -r build "${PANEL_DIR}/server/public"
 
@@ -262,5 +257,4 @@ systemctl enable --now xui-panel.service
 
 # 8) ---------- Finish --------------------------------------------
 echo "✅ Installation complete!"
-echo "🔗 Open http://<SERVER-IP> (port ${PANEL_PORT}) in your browser."
-echo "📂 Source located at ${PANEL_DIR} (remove /opt/xui-panel.bak if old data is no longer needed)."
+

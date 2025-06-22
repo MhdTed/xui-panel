@@ -6,7 +6,7 @@
 #  Service: systemd – starts at boot, restarts on failure
 # -------------------------------------------------------------
 #  How to use (on any Debian/Ubuntu‑based distro):
-#     1)  curl -fsSL https://raw.githubusercontent.com/MhdTed/xui-panel/main/install.sh -o install.sh
+#    #     1)  curl -fsSL https://raw.githubusercontent.com/MhdTed/xui-panel/main/install.sh | sudo bash
 #     2)  sudo bash install.sh
 #  The script installs all dependencies, builds the frontend,
 #  writes service files, and enables+starts the panel on port 80.
